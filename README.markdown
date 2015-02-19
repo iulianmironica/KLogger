@@ -1,13 +1,21 @@
 # KLogger: Simple Logging for PHP
 
-A project written by [Kenny Katzgrau](http://twitter.com/katzgrau) and [Dan Horrigan](http://twitter.com/dhrrgn).
+Originally written by [Kenny Katzgrau](http://twitter.com/katzgrau), [Dan Horrigan](http://twitter.com/dhrrgn)
+and updated by [Iulian Mironica] (http://twitter.com/iulianmironica)
 
 ## About
 
-KLogger is an easy-to-use [PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
-compliant logging class for PHP. It isn't naive about
-file permissions (which is expected). It was meant to be a class that you could
-quickly include into a project and have working right away.
+This class is an improved version of KLogger. 
+(KLogger is an easy-to-use 
+[PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
+compliant logging class for PHP).
+It was meant to be a class that you could quickly include into a 
+project and have working right away.
+
+Improvements: 
+- Added format functionality
+- Placed all in one class
+- Performance improvement
 
 ## Installation
 
@@ -16,7 +24,7 @@ quickly include into a project and have working right away.
 From the Command Line:
 
 ```
-composer require katzgrau/klogger:1.0.*
+composer require iulianmironica/klogger:1.0.*
 ```
 
 In your `composer.json`:
@@ -24,7 +32,7 @@ In your `composer.json`:
 ``` json
 {
     "require": {
-        "katzgrau/klogger": "1.0.*"
+        "iulianmironica/klogger": "1.0.*"
     }
 }
 ```
@@ -47,18 +55,43 @@ $users = [
     ],
 ];
 
-$logger = new Katzgrau\KLogger\Logger(__DIR__.'/logs');
+// New feature
+$loggerSettings = [
+    'level' => \IulianMironica\KLogger\Logger::DEBUG, // emergency, alert, critical, error, warning, notice, info, debug
+    'timestamp' => 'm-d-Y G:i:s', // leave blank for none
+    'format' => '%timestamp% %level% %class% %function% %message%', // output format - leave blank for none
+    'directory' => /path/to/log/dir, // path to the log directory
+    /* %timestamp%      - the timestamp declared above
+     * %level%          - level declared above
+     * %class%          - class name
+     * %function%       - method/function name
+     * %message%        - the message passed as param
+     * %line%, %file%   - point to the parent file that triggered method/function
+     */
+];
+
+$logger = new \IulianMironica\KLogger\Logger($loggerSettings);
 $logger->info('Returned a million search results');
 $logger->error('Oh dear.');
 $logger->debug('Got these users from the Database.', $users);
+
+// New feature - you can now debug your data without needing to pass a string as first param
+$logger->debug($users);
 ```
 
 ### Output
 
 ```
-[2014-03-20 3:35:43.762437] [INFO] Returned a million search results
-[2014-03-20 3:35:43.762578] [ERROR] Oh dear.
-[2014-03-20 3:35:43.762795] [DEBUG] Got these users from the Database.
+02-19-2015 14:34:08 DEBUG Model\User getAll Got these users from the Database.
+    0: array(
+        'name' => 'Kenny Katzgrau',
+        'username' => 'katzgrau',
+    )
+    1: array(
+        'name' => 'Dan Horrigan',
+        'username' => 'dhrrgn',
+    )
+02-19-2015 14:34:08 DEBUG Model\User getAll
     0: array(
         'name' => 'Kenny Katzgrau',
         'username' => 'katzgrau',
@@ -69,16 +102,9 @@ $logger->debug('Got these users from the Database.', $users);
     )
 ```
 
-## PSR-3 Compliant
-
-KLogger is [PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
-compliant. This means it implements the `Psr\Log\LoggerInterface`.
-
-[See Here for the interface definition.](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md#3-psrlogloggerinterface)
-
 ## Setting the Log Level Threshold
 
-You can use the `Psr\Log\LogLevel` constants to set Log Level Threshold, so that
+You can use the `\IulianMironica\KLogger\Logger` constants to set Log Level Threshold, so that
 any messages below that level, will not be logged.
 
 ### Default Level
@@ -89,25 +115,38 @@ The default level is `DEBUG`, which means everything will be logged.
 
 ``` php
 <?php
-use Psr\Log\LogLevel;
+use IulianMironica\KLogger\Logger;
 
 // These are in order of highest priority to lowest.
-LogLevel::EMERGENCY;
-LogLevel::ALERT;
-LogLevel::CRITICAL;
-LogLevel::ERROR;
-LogLevel::WARNING;
-LogLevel::NOTICE;
-LogLevel::INFO;
-LogLevel::DEBUG;
+\Logger::EMERGENCY;
+\Logger::ALERT;
+\Logger::CRITICAL;
+\Logger::WARNING;
+\Logger::NOTICE;
+\Logger::INFO;
+\Logger::DEBUG;
 ```
 
 ### Example
 
 ``` php
 <?php
-// The 
-$logger = new Katzgrau\KLogger\Logger('/var/log/', Psr\Log\LogLevel::WARNING);
+
+$loggerSettings = [
+    'level' => \IulianMironica\KLogger\Logger::ERROR, // emergency, alert, critical, error, warning, notice, info, debug
+    'timestamp' => 'm-d-Y G:i:s', // leave blank for none
+    'format' => '%timestamp% %level% %class% %function% %message%', // output format - leave blank for none
+    'directory' => /path/to/log/dir, // path to the log directory
+    /* %timestamp%      - the timestamp declared above
+     * %level%          - level declared above
+     * %class%          - class name
+     * %function%       - method/function name
+     * %message%        - the message passed as param
+     * %line%, %file%   - point to the parent file that triggered method/function
+     */
+];
+
+$logger = new \IulianMironica\KLogger\Logger($loggerSettings);
 $logger->error('Uh Oh!'); // Will be logged
 $logger->info('Something Happened Here'); // Will be NOT logged
 ```
