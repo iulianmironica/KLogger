@@ -5,7 +5,7 @@ and updated by [Iulian Mironica] (http://twitter.com/iulianmironica)
 
 ## About
 
-This class is an improved version of KLogger. 
+This class is an improved version of KLogger which I use in my projects and I maintain.
 (KLogger is an easy-to-use 
 [PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
 compliant logging class for PHP).
@@ -13,6 +13,7 @@ It was meant to be a class that you could quickly include into a
 project and have working right away.
 
 Improvements: 
+- Stabilisation
 - Added format functionality
 - Placed all in one class
 - Performance improvement
@@ -24,7 +25,7 @@ Improvements:
 From the Command Line:
 
 ```
-composer require iulianmironica/klogger:1.0.*
+composer require iulianmironica/klogger:dev-master
 ```
 
 In your `composer.json`:
@@ -32,7 +33,7 @@ In your `composer.json`:
 ``` json
 {
     "require": {
-        "iulianmironica/klogger": "1.0.*"
+        "iulianmironica/klogger": "dev-master"
     }
 }
 ```
