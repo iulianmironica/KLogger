@@ -362,7 +362,8 @@ class Logger
                 '=> $1',
                 'array()',
                 '    ',
-            ), str_replace('array (', 'array(', var_export($value, true)));
+            ), str_replace('array (', 'array(', @var_export($value, true)));
+            // TODO: var_export causes circular reference error sometimes
             $export .= PHP_EOL;
         }
         return str_replace(array('\\\\', '\\\''), array('\\', '\''), rtrim($export));
