@@ -1,6 +1,6 @@
 {
     "name": "iulianmironica/klogger",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A simple logging class, an improved KLogger version, has formatting, it's a bit optimized has no dependency.",
     "keywords": ["logging"],
     "require": {
