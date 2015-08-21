@@ -254,6 +254,8 @@ class Logger
             }
 
             $this->fileHandle = fopen($this->logFilePath, 'a');
+            chmod($this->logFilePath, $this->defaultPermissions);
+
             if (!$this->fileHandle) {
                 throw new RuntimeException('The file could not be opened. Check permissions.');
             }
