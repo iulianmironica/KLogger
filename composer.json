@@ -1,30 +1,32 @@
 {
-    "name": "iulianmironica/klogger",
-    "version": "1.0.1",
-    "description": "A simple logging class, an improved KLogger version, has formatting, it's a bit optimized has no dependency.",
-    "keywords": ["logging"],
-    "require": {
-        "php": ">=5.3"
+  "name": "iulianmironica/klogger",
+  "version": "1.0.1",
+  "description": "A simple logging class, an improved KLogger version, has formatting, it's a bit optimized has no dependency.",
+  "keywords": ["logging"],
+  "require": {
+    "php": ">=5.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "homepage": "https://github.com/iulianmironica/KLogger",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Iulian Mironica",
+      "email": "admin@iulianmironica.ro",
+      "homepage": "http://iulianmironica.ro"
     },
-    "require-dev": {
-        "phpunit/phpunit": "4.0.*"
+    {
+      "name": "Kenny Katzgrau",
+      "email": "katzgrau@gmail.com"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Iulian Mironica",
-            "email": "iulian.mironica@yahoo.com"
-        },
-        {
-            "name": "Kenny Katzgrau",
-            "email": "katzgrau@gmail.com"
-        },
-        {
-            "name": "Dan Horrigan",
-            "email": "dan@dhorrigan.com"
-        }
-    ],
-    "autoload": {
-        "classmap": ["src/"]
+    {
+      "name": "Dan Horrigan",
+      "email": "dan@dhorrigan.com"
     }
+  ],
+  "autoload": {
+    "classmap": ["src/"]
+  }
 }
